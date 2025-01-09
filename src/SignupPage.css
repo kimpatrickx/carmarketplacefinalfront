@@ -1,0 +1,103 @@
+/* Overall container for the signup page */
+.signup-container {
+    display: flex;
+    height: 100vh;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+  }
+  
+  /* Left section with the image */
+  .left-section {
+    flex: 1;
+    background-color: #f4f7fa;
+    background-image: url('./brand.png'); /* Set your desired image here */
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  
+  /* Right section with the form */
+  .right-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    padding: 20px;
+  }
+  
+  .form-container {
+    width: 100%;
+    max-width: 400px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    height: 90vh; /* Set the height of the form */
+    overflow-y: auto; /* Enable vertical scrolling if content exceeds the height */
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #333;
+    font-size: 22px;
+  }
+  
+  /* Styling for form inputs */
+  .input-group {
+    margin-bottom: 12px;
+  }
+  
+  label {
+    margin-bottom: 6px;
+    color: #555;
+    font-size: 12px;
+  }
+  
+  input, select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #333;
+    width: 100%;
+  }
+  
+  input:focus, select:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  .login-link {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .login-link a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .login-link a:hover {
+    text-decoration: underline;
+  }
+  

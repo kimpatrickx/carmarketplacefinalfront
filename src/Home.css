@@ -1,0 +1,76 @@
+/* src/pages/Home.css */
+
+.home-page {
+    padding: 20px;
+    background-color: #f4f4f4;
+  }
+  
+  .search-container {
+    max-width: 1200px;
+    margin: 0 auto 20px;
+    text-align: center;
+  }
+  
+  .search-bar {
+    width: 100%;
+    max-width: 500px;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin: 0 auto;
+  }
+  
+  .car-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .car-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s;
+  }
+  
+  .car-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .car-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .car-info {
+    padding: 15px;
+  }
+  
+  .car-info h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .car-price {
+    font-size: 16px;
+    font-weight: bold;
+    color: #4caf50;
+    margin-bottom: 10px;
+  }
+  
+  .car-location {
+    font-size: 14px;
+    color: #777;
+  }
+  
+  @media (max-width: 768px) {
+    .search-bar {
+      max-width: 100%;
+    }
+  }
+  
