@@ -1,80 +1,98 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import './LoginPage.css';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./LoginPage.css";
 
 const LoginPage = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const [error, setError] = useState("");
 
-  const handleLogin = (event) => {
-    event.preventDefault();
-
-    const credentials = { email, password };
-
-    fetch("http://localhost:8000/api/loginuser", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(credentials),
-    })
-    .then((response) => response.json())
-    .then((data) => {
-      if (data.status === "true") {
-        alert("Login successful!");
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('user', JSON.stringify(data.user));
-        navigate('/dashboard'); // Redirect to Dashboard
-      } else {
-        alert("Login failed: " + data.message);
-      }
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-      alert("An error occurred during login.");
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
     });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    try {
+      console.log("Attempting login with:", { email: formData.email });
+
+      const response = await fetch("http://localhost:8000/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+      console.log("Server response:", data);
+
+      if (response.ok) {
+        localStorage.setItem("user", JSON.stringify(data.user));
+        localStorage.setItem("token", data.token);
+
+        navigate("/home");
+      } else {
+        setError(
+          data.message || "Login failed. Please check your credentials."
+        );
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      setError("Error connecting to server. Please try again.");
+    }
   };
 
   return (
     <div className="login-container">
-      <div className="left-section">
-        {/* Image is set via CSS */}
-      </div>
-      <div className="right-section">
-        <div className="form-container">
-          <h2>Login</h2>
-          <form onSubmit={handleLogin}>
-            <div className="input-group">
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                id="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
+      <div className="login-card">
+        <h2 className="login-title">Login</h2>
 
-            <div className="input-group">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                placeholder="Enter your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
+        <form onSubmit={handleSubmit}>
+          {error && <div className="error-message">{error}</div>}
 
-            <button type="submit" className="submit-btn">Login</button>
+          <div>
+            <label className="input-label">Email</label>
+            <input
+              type="email"
+              name="email"
+              className="input-field"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-            <p className="signup-link">
-              Don't have an account? <Link to="/signup">Sign Up</Link>
-            </p>
-          </form>
+          <div>
+            <label className="input-label">Password</label>
+            <input
+              type="password"
+              name="password"
+              className="input-field"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <button type="submit" className="submit-button">
+            Login
+          </button>
+        </form>
+
+        <div className="text-center mt-4">
+          <a href="/signup" className="link-text">
+            Need an account? Sign up
+          </a>
         </div>
       </div>
     </div>

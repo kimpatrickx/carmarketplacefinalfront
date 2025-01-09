@@ -1,10 +1,22 @@
-// src/components/Navbar.js
-
 import React from "react";
-import { Link } from "react-router-dom";
-import "./Navbar.css"; // We'll style it in a separate CSS file
+import { Link, useNavigate } from "react-router-dom";
+import "./Navbar.css";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const isAuthenticated = !!localStorage.getItem("token");
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    navigate("/login");
+  };
+
+  if (!isAuthenticated) {
+    navigate("/login");
+    return null;
+  }
+
   return (
     <nav className="navbar">
       <div className="navbar-container">
@@ -28,9 +40,9 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/logout" className="nav-link">
+            <button onClick={handleLogout} className="nav-link logout-button">
               Logout
-            </Link>
+            </button>
           </li>
         </ul>
       </div>
